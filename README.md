@@ -2,44 +2,39 @@
 
 Aplicación de escritorio para la gestión de empleados, proyectos y tareas dentro de equipos de trabajo.
 
-Este proyecto ha sido desarrollado como parte del **Trabajo de Fin de Grado del CFGS Desarrollo de Aplicaciones Multiplataforma (DAM)**.
+Este proyecto se desarrolla como parte del **Trabajo de Fin de Grado del CFGS Desarrollo de Aplicaciones Multiplataforma (DAM)**.
 
-La aplicación permite organizar el trabajo dentro de un equipo mediante la creación de proyectos, la división en tareas y su asignación a diferentes usuarios, permitiendo además realizar un seguimiento del progreso de cada proyecto.
+El sistema permite organizar proyectos de trabajo, dividirlos en tareas y asignarlos a diferentes usuarios según su rol dentro del sistema.
 
 ---
 
 # Descripción del proyecto
 
-El sistema permite gestionar el trabajo dentro de un equipo mediante una plataforma que organiza proyectos, tareas y usuarios.
+La aplicación permite gestionar el trabajo dentro de un equipo mediante una plataforma que organiza proyectos, tareas y usuarios.
 
-Cada proyecto puede dividirse en múltiples tareas que se asignan a diferentes miembros del equipo. Los usuarios pueden visualizar sus tareas, actualizar su estado y añadir comentarios para facilitar la comunicación y el seguimiento del trabajo.
+Cada proyecto puede dividirse en múltiples tareas que se asignan a distintos miembros del equipo. Los usuarios pueden consultar sus tareas, actualizar su estado y añadir comentarios para facilitar el seguimiento del trabajo.
 
-El objetivo principal es ofrecer una herramienta sencilla que facilite:
+El objetivo del sistema es facilitar:
 
 * la organización del trabajo
-* la asignación de responsabilidades
+* la distribución de responsabilidades
 * el seguimiento del progreso de los proyectos
+* la comunicación entre miembros del equipo
 
 ---
 
 # Tecnologías utilizadas
 
-| Componente           | Tecnología            |
-| -------------------- | --------------------- |
-| Lenguaje             | C#                    |
-| Cliente              | WPF                   |
-| Backend              | ASP.NET Core Web API  |
-| Base de datos        | SQL Server            |
-| ORM                  | Entity Framework Core |
-| Control de versiones | Git                   |
-| Repositorio          | GitHub                |
-| IDE                  | Visual Studio 2022    |
-
-Framework utilizado:
-
-```
-.NET 8 LTS
-```
+| Componente           | Tecnología |
+| -------------------- | ---------- |
+| Cliente              | WPF        |
+| Lenguaje cliente     | C#         |
+| Backend              | Python     |
+| Framework API        | FastAPI    |
+| Base de datos        | SQL        |
+| ORM                  | SQLAlchemy |
+| Control de versiones | Git        |
+| Repositorio          | GitHub     |
 
 ---
 
@@ -47,24 +42,24 @@ Framework utilizado:
 
 El proyecto sigue una arquitectura **cliente-servidor**.
 
-```
-Cliente WPF
-     ↓
-API REST (ASP.NET Core)
-     ↓
-Base de datos (SQL Server)
+```text
+Cliente WPF (C#)
+        ↓ HTTP / JSON
+API REST (FastAPI - Python)
+        ↓
+Base de datos SQL
 ```
 
 ## Cliente WPF
 
 Aplicación de escritorio encargada de la interfaz de usuario.
 
-Funciones principales:
+Responsabilidades principales:
 
 * mostrar proyectos y tareas
 * gestión de usuarios
 * visualización del progreso
-* interacción con la API
+* comunicación con la API mediante HTTP
 
 ---
 
@@ -84,7 +79,7 @@ Responsabilidades:
 
 ## Base de datos
 
-Encargada del almacenamiento de la información del sistema.
+Encargada de almacenar la información del sistema.
 
 Tablas principales:
 
@@ -96,53 +91,30 @@ Tablas principales:
 
 ---
 
-# Funcionalidades principales
-
-El sistema incluye las siguientes funcionalidades:
-
-### Gestión de usuarios
-
-* registro de usuarios
-* inicio de sesión
-* gestión de roles
-
-### Gestión de proyectos
-
-* creación de proyectos
-* visualización del estado del proyecto
-* seguimiento del progreso
-
-### Gestión de tareas
-
-* creación de tareas
-* asignación a usuarios
-* cambio de estado
-* comentarios en tareas
-
-### Seguimiento del trabajo
-
-* panel de tareas asignadas
-* filtros por estado
-* visualización del progreso del proyecto
-
----
-
 # Estructura del repositorio
 
-```
-/src
- ├── Cliente.Wpf
- ├── Api
- ├── Dominio
- ├── Infraestructura
-
-/tests
- ├── Api.Tests
-
-/docs
- ├── arquitectura
- ├── flujo-trabajo
- ├── base-datos
+```text
+gestion-proyectos-tareas
+│
+├── README.md
+│
+├── api-python
+│   ├── app
+│   │   ├── routers
+│   │   ├── models
+│   │   ├── schemas
+│   │   ├── services
+│   │   └── main.py
+│   │
+│   └── requirements.txt
+│
+├── cliente-wpf
+│   ├── Cliente.Wpf.sln
+│   └── Cliente.Wpf
+│
+├── docs
+│
+└── tests
 ```
 
 ---
@@ -151,77 +123,105 @@ El sistema incluye las siguientes funcionalidades:
 
 ## Requisitos
 
+* Python 3.10 o superior
 * Visual Studio 2022
-* .NET 8 SDK
-* SQL Server (Express o Developer)
-
----
-
-## Clonar el repositorio
-
-```bash
-git clone https://github.com/usuario/proyecto-tfg.git
-```
-
-Entrar en el directorio del proyecto:
-
-```bash
-cd proyecto-tfg
-```
-
----
-
-# Configuración de la base de datos
-
-1. Crear una base de datos en SQL Server
-2. Configurar la cadena de conexión en el archivo:
-
-```
-appsettings.json
-```
-
-Ejemplo:
-
-```
-"ConnectionStrings": {
- "DefaultConnection": "Server=localhost;Database=GestionTareas;Trusted_Connection=True;"
-}
-```
+* .NET 8
+* Base de datos SQL
+* Git
 
 ---
 
 # Ejecutar la API
 
-1. Abrir la solución en Visual Studio
-2. Seleccionar el proyecto **Api**
-3. Ejecutar el proyecto
+Entrar en la carpeta de la API:
 
-La API quedará disponible en:
-
-```
-https://localhost:xxxx
+```bash
+cd api-python
 ```
 
-Swagger estará disponible en:
+Crear entorno virtual:
+
+```bash
+python -m venv venv
+```
+
+Activar entorno:
+
+Windows
+
+```bash
+venv\Scripts\activate
+```
+
+Instalar dependencias:
+
+```bash
+pip install -r requirements.txt
+```
+
+Ejecutar la API:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+La API estará disponible en:
 
 ```
-/swagger
+http://localhost:8000
+```
+
+Documentación automática de la API:
+
+```
+http://localhost:8000/docs
 ```
 
 ---
 
 # Ejecutar el cliente WPF
 
-1. Seleccionar el proyecto **Cliente.Wpf**
-2. Ejecutar el proyecto desde Visual Studio
+1. Abrir **Visual Studio**
+2. Abrir la solución:
+
+```
+cliente-wpf/Cliente.Wpf.sln
+```
+
+3. Ejecutar el proyecto
 
 La aplicación se conectará a la API para obtener los datos.
 
 ---
 
+# Funcionalidades principales
+
+El sistema incluye las siguientes funcionalidades:
+
+## Gestión de usuarios
+
+* registro de usuarios
+* inicio de sesión
+* gestión de roles
+
+## Gestión de proyectos
+
+* creación de proyectos
+* visualización de proyectos
+* seguimiento del progreso
+
+## Gestión de tareas
+
+* creación de tareas
+* asignación de tareas a usuarios
+* cambio de estado
+* comentarios en tareas
+
+---
+
 # Flujo de trabajo del proyecto
 
-El proyecto utiliza un flujo de desarrollo basado en **Git Flow simplificado**.
+El proyecto utiliza un flujo de trabajo basado en **Git Flow simplificado**.
 
 Ramas principales:
 
@@ -230,7 +230,7 @@ main
 develop
 ```
 
-Ramas de trabajo:
+Ramas de desarrollo:
 
 ```
 feature/*
@@ -240,14 +240,14 @@ release/*
 hotfix/*
 ```
 
-El flujo de desarrollo es el siguiente:
+Flujo de trabajo:
 
 1. Crear rama desde `develop`
-2. Implementar funcionalidad
+2. Desarrollar funcionalidad
 3. Realizar commits organizados
-4. Subir la rama
+4. Subir cambios
 5. Crear Pull Request
-6. Revisar cambios
+6. Revisar código
 7. Fusionar en `develop`
 
 ---
@@ -257,7 +257,7 @@ El flujo de desarrollo es el siguiente:
 Formato utilizado:
 
 ```
-tipo(ámbito): descripción
+tipo(ambito): descripción
 ```
 
 Ejemplos:
@@ -266,14 +266,14 @@ Ejemplos:
 feat(api): crear endpoint de login
 feat(wpf): crear pantalla de tareas
 fix(api): corregir validación de credenciales
-docs(readme): añadir instrucciones de instalación
+docs(readme): añadir guía de instalación
 ```
 
 ---
 
 # Documentación
 
-La documentación del proyecto se encuentra en la carpeta:
+La documentación técnica del proyecto se encuentra en la carpeta:
 
 ```
 /docs
@@ -282,9 +282,9 @@ La documentación del proyecto se encuentra en la carpeta:
 Incluye:
 
 * arquitectura del sistema
-* flujo de trabajo
 * modelo de base de datos
-* documentación técnica
+* flujo de trabajo
+* análisis del sistema
 
 ---
 
