@@ -127,7 +127,7 @@ gestion-proyectos-tareas
 
 * Python 3.10 o superior
 * Visual Studio 2022
-* .NET 8
+* .NET 10
 * Base de datos SQL
 * Git
 
@@ -167,7 +167,9 @@ Ejecutar la API:
 uvicorn app.main:app --reload  
 ```
 
+o con
 
+```bash FastApi dev main.py ```
 
 La API estará disponible en:
 
