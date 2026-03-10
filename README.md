@@ -111,10 +111,12 @@ gestion-proyectos-tareas
 ├── cliente-wpf
 │   ├── Cliente.Wpf.sln
 │   └── Cliente.Wpf
+│            └──Models
+│            └── ViewModels
+│            └──Views
 │
-├── docs
-│
-└── tests
+└── docs
+
 ```
 
 ---
@@ -162,8 +164,10 @@ pip install -r requirements.txt
 Ejecutar la API:
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload  
 ```
+
+
 
 La API estará disponible en:
 
@@ -190,7 +194,7 @@ cliente-wpf/Cliente.Wpf.sln
 
 3. Ejecutar el proyecto
 
-La aplicación se conectará a la API para obtener los datos.
+La aplicación se conectara a la API para obtener los datos.
 
 ---
 
@@ -284,7 +288,7 @@ Incluye:
 * arquitectura del sistema
 * modelo de base de datos
 * flujo de trabajo
-* análisis del sistema
+* analisis del sistema
 
 ---
 
