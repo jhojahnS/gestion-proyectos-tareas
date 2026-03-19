@@ -68,6 +68,8 @@ Tablas principales:
 * Comentarios
 
 # Estructura del repositorio
+
+```
 gestion-proyectos-tareas-backend
 │
 ├── .github/workflows
@@ -82,7 +84,7 @@ gestion-proyectos-tareas-backend
 ├── main.py
 ├── requirements.txt
 └── README.md
-
+```
 # Instalación del proyecto
 
 ## Requisitos
