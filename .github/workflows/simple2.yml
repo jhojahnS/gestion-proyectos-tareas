@@ -1,0 +1,38 @@
+name: CI2
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  backend-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: download repository
+        uses: actions/checkout@v4
+
+      - name: install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8
+
+      - name: quality (lint)
+        run: |
+          flake8 .
+
+      - name: Verificación básica del proyecto
+        run: |
+          python -m compileall .
+
+      - name: Construcción de imagen Docker
+        run: |
+          docker build -t api .
