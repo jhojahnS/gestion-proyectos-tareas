@@ -278,6 +278,100 @@ Incluye:
 * flujo de trabajo
 * análisis del sistema
 
+# Integración continua (CI) con GitHub Actions
+
+El proyecto incorpora un sistema de integración continua (CI) mediante **GitHub Actions**, que permite automatizar la verificación del backend en cada cambio realizado en el repositorio.
+
+## Objetivo
+
+El objetivo del pipeline es garantizar que el código:
+
+- Cumple unos estándares mínimos de calidad
+- No contiene errores de sintaxis
+- Puede ser construido correctamente como imagen Docker
+
+Este proceso se ejecuta automáticamente en cada **Pull Request** y en cada **push** a las ramas principales.
+
+---
+
+## Ejecución del pipeline
+
+El workflow se ejecuta en los siguientes casos:
+
+- Al realizar un **push** en las ramas:
+  - `main`
+  - `develop`
+
+- Al crear o actualizar una **Pull Request** hacia:
+  - `main`
+  - `develop`
+
+---
+
+## Etapas del pipeline
+
+El pipeline está compuesto por las siguientes fases:
+
+### 1. Descarga del repositorio
+
+Se obtiene el código fuente del repositorio en la máquina virtual de GitHub Actions.
+
+---
+
+### 2. Configuración del entorno
+
+- Se instala **Python 3.14**
+- Se actualiza `pip`
+- Se instalan las dependencias del proyecto definidas en `requirements.txt`
+
+---
+
+### 3. Chequeo de calidad del codigo (Lint)
+
+Se ejecuta un análisis estático del código utilizando con `flake8`, que permite detectar:
+
+- Errores de sintaxis
+- Problemas de estilo
+- Variables no utilizadas
+- Posibles malas prácticas
+
+Este paso ayuda a mantener un código limpio y consistente.
+
+---
+
+### 4. Verificación básica del proyecto
+
+Se ejecuta el siguiente comando:
+
+```bash
+python -m compileall .
+```
+Este proceso comprueba que todos los archivos Python del proyecto:
+* Son sintácticamente correctos
+* Pueden ser compilados sin errores
+
+### 5. Construcción de la imagen Docker
+
+Se construye una imagen Docker del backend mediante:
+```bash 
+docker build -t backend-api .
+``` 
+Este paso verifica que:
+
+* El Dockerfile es correcto
+* El proyecto puede ser empaquetado correctamente
+* El backend es desplegable en un entorno containerizado
+
+### Beneficios
+
+La integración de este pipeline permite:
+
+* Detectar errores automáticamente antes de integrar cambios
+* Mejorar la calidad del código
+* Evitar que código defectuoso llegue a producción
+* Garantizar que el proyecto es desplegable mediante Docker
+* Seguir buenas prácticas utilizadas en entornos profesionales
+
 ## Autores
 
 * Jhojahn Sebastian Ramirez Marin
